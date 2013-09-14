@@ -1,10 +1,16 @@
 MAS multiple_criteria {
 
 	infrastructure: Centralised
+	
+	environment: env.WorldEnv
 
 	agents:
-		agent1 sample_agent;
+		agent sample_agent agentClass env.WorldAgent #70;
 
+	classpath: "C:/Users/Rodrigo/Tesis/Desarrollo/lwjgl-2.9.0/jar/*.jar";
+	 
 	aslSourcePath:
 		"src/asl";
+		
+	
 }
