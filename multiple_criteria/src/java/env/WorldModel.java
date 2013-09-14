@@ -12,12 +12,14 @@ import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
+import ag.MultipleCriteriaAgent;
+
 public class WorldModel {
 
 	private static WorldModel instance = null;
 	
 	// Componentes del modelos.
-	private CopyOnWriteArrayList<WorldAgent> agents;
+	private CopyOnWriteArrayList<MultipleCriteriaAgent> agents;
 		
 	// Mapeo de atributos del modelo.
 	private int nextAgId = 0;
@@ -28,7 +30,7 @@ public class WorldModel {
 	private ArrayList<Location> agentCells;
 	
 	// Grilla
-	private WorldAgent[][] grid = null; 
+	private MultipleCriteriaAgent[][] grid = null; 
 	private int neighborhood = 1;
 	
 
@@ -61,7 +63,7 @@ public class WorldModel {
         }
     	
     	// Crea el conjunto de agentes, como máximo el número de casillas del modelo.
-		agents = new CopyOnWriteArrayList<WorldAgent>();
+		agents = new CopyOnWriteArrayList<MultipleCriteriaAgent>();
 		names = new HashMap<String,Integer>(width * height);
 		
 		// Inicializa las listas de celdas.
@@ -73,7 +75,7 @@ public class WorldModel {
 				freeCells.add(new Location(i,j));
 		
 		// Inicializa la grilla
-		grid = new WorldAgent[width][height];
+		grid = new MultipleCriteriaAgent[width][height];
 
 		
 		logger.info("Parameters -> width: "+this.width+"height:"+this.height);
@@ -91,7 +93,7 @@ public class WorldModel {
 	}
 		
 	// Agrega un agente al cunjutno de agentes
-	public void addAgent(WorldAgent ag) {
+	public void addAgent(MultipleCriteriaAgent ag) {
 		agents.add(ag);
 		Location l = ag.getLocation();
 		grid[l.x][l.y] = ag;
@@ -104,7 +106,7 @@ public class WorldModel {
 	}
 	
 	// Retorna el agente en base a su nombre
-	public WorldAgent getAgent(String agName) {
+	public MultipleCriteriaAgent getAgent(String agName) {
 		Integer ag = names.get(agName);
 		return agents.get(ag);
 	}
@@ -115,9 +117,9 @@ public class WorldModel {
 		return freeCells.remove(r);
 	}
 	
-	public Iterator<WorldAgent> getNeighbors(WorldAgent ag){
+	public Iterator<MultipleCriteriaAgent> getNeighbors(MultipleCriteriaAgent ag){
 		int i;
-		ArrayList<WorldAgent> list = new ArrayList<WorldAgent>();
+		ArrayList<MultipleCriteriaAgent> list = new ArrayList<MultipleCriteriaAgent>();
 		Location l = ag.getLocation();
 		
 		for(i = 1; i <= neighborhood; i++ ){
@@ -135,7 +137,7 @@ public class WorldModel {
 	}
 	
 	// recupera el iterador de agentes.
-	public Iterator<WorldAgent> getAgentsIterator() {
+	public Iterator<MultipleCriteriaAgent> getAgentsIterator() {
 		return this.agents.iterator();
 	}
 

@@ -5,7 +5,7 @@ MAS multiple_criteria {
 	environment: env.WorldEnv
 
 	agents:
-		agent sample_agent agentClass env.WorldAgent #70;
+		agent sample_agent agentClass ag.MultipleCriteriaAgent #70;
 
 	classpath: "C:/Users/Rodrigo/Tesis/Desarrollo/lwjgl-2.9.0/jar/*.jar";
 	 

@@ -29,6 +29,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import ag.MultipleCriteriaAgent;
+
 public class WorldView implements Runnable{
 
 	private final WorldModel model;
@@ -42,7 +44,7 @@ public class WorldView implements Runnable{
 	
 	// Logger
 	private Logger logger = Logger.getLogger("View:"+WorldView.class.getName());
-		
+	
 	// Constructor.
 	public WorldView(WorldModel model){
 		
@@ -88,7 +90,8 @@ public class WorldView implements Runnable{
 		try {
 		    Display.setDisplayMode(new DisplayMode(this.view_hsize,this.view_vsize));
 		    Display.setVSyncEnabled(true);
-		    Display.create();
+		    Display.create();		    
+		    Display.setTitle("Multiple Criteria");
 		} catch (LWJGLException e) {
 		    e.printStackTrace();
 		    System.exit(0);
@@ -106,7 +109,7 @@ public class WorldView implements Runnable{
 		
 		// Recorre los agentes y los renderiza.
 		glColor3f(1.0f, 0.0f, 0.0f);
-		Iterator<WorldAgent> ait = model.getAgentsIterator();
+		Iterator<MultipleCriteriaAgent> ait = model.getAgentsIterator();
 		
 		while(ait.hasNext())
 			renderAgent(ait.next());
@@ -117,7 +120,7 @@ public class WorldView implements Runnable{
 	}
 	
 	// Dibuja un agente. Método por defecto.
-	public void renderAgent(WorldAgent ag){
+	public void renderAgent(MultipleCriteriaAgent ag){
 		int slices = 8; // Cantidad de porciones que generarán el circulo.
 		int color = 0;
 		
@@ -172,5 +175,5 @@ public class WorldView implements Runnable{
 		
 		Display.destroy();
 	}
-	
+		
 }

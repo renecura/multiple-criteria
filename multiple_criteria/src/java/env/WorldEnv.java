@@ -8,6 +8,8 @@ import jason.environment.TimeSteppedEnvironment;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import ag.MultipleCriteriaAgent;
+
 public class WorldEnv extends TimeSteppedEnvironment {
 
 	private WorldModel model;
@@ -34,6 +36,7 @@ public class WorldEnv extends TimeSteppedEnvironment {
         }
         
         logger.info("step "+step+" finished in "+time);
+        //view.setTitle("Multiple Criteria - Step "+step+" finished in "+time);
     }
 	
 	// Acciones de los agentes.
@@ -47,13 +50,13 @@ public class WorldEnv extends TimeSteppedEnvironment {
 			return true;
 		}
 		
-		WorldAgent ag = model.getAgent(agName); // Recupera el agente
+		MultipleCriteriaAgent ag = model.getAgent(agName); // Recupera el agente
 		
 		if(functor.equalsIgnoreCase("choose")){
 			
-			Iterator<WorldAgent> nit = model.getNeighbors(ag);
+			Iterator<MultipleCriteriaAgent> nit = model.getNeighbors(ag);
 			Iterator<Literal> bbit;
-			WorldAgent auxag = null;
+			MultipleCriteriaAgent auxag = null;
 			Literal nchoice;
 			int nalt, i;
 			

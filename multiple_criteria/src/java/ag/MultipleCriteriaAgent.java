@@ -1,16 +1,17 @@
-package env;
+package ag;
 
+import env.WorldModel;
 import jason.asSemantics.Agent;
 import jason.environment.grid.Location;
 
 
-public class WorldAgent extends Agent{
+public class MultipleCriteriaAgent extends Agent{
 
 	private WorldModel model;
 	private Location l;
 	
 	// Crea el agente y lo registra en el modelo.
-	public WorldAgent(){
+	public MultipleCriteriaAgent(){
 		super();
 		
 		model = WorldModel.getInstance();
