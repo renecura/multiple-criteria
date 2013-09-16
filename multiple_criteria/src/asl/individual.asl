@@ -17,7 +17,7 @@
 	!loop.
 
 +!loop : true <- 
-	//.print("looping");	
+	//.print("looping");
 	.wait(100);
 	choose;
 	!loop.

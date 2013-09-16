@@ -64,6 +64,7 @@ public class MultipleCriteriaAgent extends Agent{
 		return this.chosen;
 	}
 	
+	
 	public Alternative chosen(){
 		return this.chosen;
 	}
@@ -74,7 +75,7 @@ public class MultipleCriteriaAgent extends Agent{
 		this.method.addPreference(this.neighborsPref);
 		//this.bb.add(Literal.parseLiteral("neighbors("+this.neighbors.toString()+")"));
 	}
-	 
+
 	public void updatePercepts(){
 		if (this.neighborsPref != null) this.neighborsPref.perceptNeighbors();
 	}
