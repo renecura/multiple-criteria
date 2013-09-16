@@ -5,9 +5,12 @@ MAS multiple_criteria {
 	environment: env.WorldEnv
 
 	agents:
-		agent sample_agent agentClass ag.MultipleCriteriaAgent #70;
+		//agent sample_agent agentClass ag.MultipleCriteriaAgent #70;
+		agent individual agentClass ag.MultipleCriteriaAgent #768;
 
 	classpath: "C:/Users/Rodrigo/Tesis/Desarrollo/lwjgl-2.9.0/jar/*.jar";
+			   "C:/Users/Rodrigo/Desarrollo/git/voting-methods/voting/lib/*.jar";
+			   //"C:/Users/Rodrigo/Tesis/Desarrollo/Slick/*.jar";	
 	 
 	aslSourcePath:
 		"src/asl";
