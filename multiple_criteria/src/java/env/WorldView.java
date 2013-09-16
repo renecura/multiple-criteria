@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 import static org.lwjgl.opengl.GL11.GL_PROJECTION;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3ub;
 import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
@@ -14,16 +15,16 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glScalef;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.glColor3ub;
-import jason.asSyntax.Literal;
-import jason.asSyntax.NumberTerm;
 import jason.environment.grid.Location;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
+
+import net.renecura.voting.alternatives.rgbcolor.RgbColorAlternative;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -122,7 +123,6 @@ public class WorldView implements Runnable{
 	// Dibuja un agente. Método por defecto.
 	public void renderAgent(MultipleCriteriaAgent ag){
 		int slices = 8; // Cantidad de porciones que generarán el circulo.
-		int color = 0;
 		
 		if (ag == null) return;
 		
@@ -133,26 +133,9 @@ public class WorldView implements Runnable{
 		glScalef(this.cell_size/2-1, this.cell_size/2-1, 1);
 		
 		// Establece el color del agente segun su preferencia personal.
-		Iterator<Literal> it = ag.getBB().getCandidateBeliefs(Literal.parseLiteral("chosen_alt(_)"), null);
+		Color c = ((RgbColorAlternative)ag.chosen()).getColor();
 		
-		if (it != null && it.hasNext())
-		color = (int)(((NumberTerm)(it.next().getTerm(0))).solve());
-		else logger.info("Ag "+ag+" no tiene belief");
-		
-		byte r, g, b;
-		
-		if (color == 0) {
-			r = (byte)128;
-			g = (byte)128;
-			b = (byte)128;
-		}
-		else {
-			r = (byte)(((color & 0x04) > 0)? 255: 0);
-			g = (byte)(((color & 0x02) > 0)? 255: 0);
-			b = (byte)(((color & 0x01) > 0)? 255: 0);
-		}
-		
-		glColor3ub(r, g, b);
+		glColor3ub((byte)c.getRed(), (byte)c.getGreen(), (byte)c.getBlue());
 		
 		glBegin(GL_TRIANGLE_FAN);
 		

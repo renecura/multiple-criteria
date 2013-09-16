@@ -2,6 +2,7 @@ package env;
 
 import jason.environment.grid.Location;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
+import net.renecura.voting.alternatives.AlternativeSet;
+import net.renecura.voting.alternatives.rgbcolor.RgbColorAlternative;
+import net.renecura.voting.alternatives.rgbcolor.RgbColorDistancePreference;
 import ag.MultipleCriteriaAgent;
 
 public class WorldModel {
@@ -40,6 +44,11 @@ public class WorldModel {
 	
 	// Logger
 	private Logger logger = Logger.getLogger("Model:"+WorldModel.class.getName());
+	
+	
+	// Alternatives
+	private AlternativeSet altSet;
+	private RgbColorDistancePreference generalPref;
 	
 	// Constructor
 	private WorldModel() {
@@ -77,6 +86,21 @@ public class WorldModel {
 		// Inicializa la grilla
 		grid = new MultipleCriteriaAgent[width][height];
 
+		
+		//Inicializa el set de alternativas del modelo y la alternativa impuesta del mismo.
+		altSet = new AlternativeSet();
+		
+		altSet.add(new RgbColorAlternative("Black", Color.gray));
+		altSet.add(new RgbColorAlternative("Red", Color.red));
+		altSet.add(new RgbColorAlternative("Green", Color.green));
+		altSet.add(new RgbColorAlternative("Blue", Color.blue));
+		altSet.add(new RgbColorAlternative("Yellow", Color.yellow));
+		altSet.add(new RgbColorAlternative("Magenta", Color.magenta));
+		altSet.add(new RgbColorAlternative("Cyan", Color.cyan));
+		altSet.add(new RgbColorAlternative("White", Color.white));
+		
+		this.generalPref = new RgbColorDistancePreference(Color.white);
+		
 		
 		logger.info("Parameters -> width: "+this.width+"height:"+this.height);
 		
@@ -117,7 +141,7 @@ public class WorldModel {
 		return freeCells.remove(r);
 	}
 	
-	public Iterator<MultipleCriteriaAgent> getNeighbors(MultipleCriteriaAgent ag){
+	public ArrayList<MultipleCriteriaAgent> getNeighbors(MultipleCriteriaAgent ag){
 		int i;
 		ArrayList<MultipleCriteriaAgent> list = new ArrayList<MultipleCriteriaAgent>();
 		Location l = ag.getLocation();
@@ -133,7 +157,7 @@ public class WorldModel {
 				
 		//if(!list.isEmpty()) logger.info("Ag: "+ag.toString()+" -> Vencinos: "+list);
 		
-		return list.iterator();
+		return list;
 	}
 	
 	// recupera el iterador de agentes.
@@ -148,6 +172,14 @@ public class WorldModel {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public AlternativeSet getAlternativeSet() {
+		return altSet;
+	}
+
+	public RgbColorDistancePreference getGeneralPreference() {
+		return generalPref;
 	}
 	
 }
