@@ -31,6 +31,7 @@ public class WorldModel {
 	private Map<String,Integer> names;
 	
 	private ArrayList<Location> freeCells;
+	@SuppressWarnings("unused")
 	private ArrayList<Location> agentCells;
 	
 	// Grilla
@@ -41,6 +42,8 @@ public class WorldModel {
 	// Alto y ancho en celdas
 	private int width;
 	private int height;
+	
+	protected String method;
 	
 	// Logger
 	private Logger logger = Logger.getLogger("Model:"+WorldModel.class.getName());
@@ -64,11 +67,13 @@ public class WorldModel {
     		// Determina el tamaño del modelo.
         	width = Integer.parseInt(prop.getProperty("worldwidth"));
     		height = Integer.parseInt(prop.getProperty("worldheight"));
+    		method = prop.getProperty("votingmethod");
     		
     	} catch (IOException ex) {
     		logger.warning("Archivo de propiedades no encontrado, se utilizarán valores por defecto. "+ex.getMessage());
     		width = 64;
     		height = 64;
+    		method = "net.renecura.voting.methods.PluralityMethod";
         }
     	
     	// Crea el conjunto de agentes, como máximo el número de casillas del modelo.
@@ -172,6 +177,10 @@ public class WorldModel {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public String getMethod(){
+		return method;
 	}
 
 	public AlternativeSet getAlternativeSet() {
